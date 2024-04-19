@@ -3,7 +3,7 @@ from .models import Oprators, Plans, History
 # Register your models here.
 
 class OpratorTable(admin.ModelAdmin):
-    list_display = ('oprator_name', 'created',  'oprator_code',
+    list_display = ('oprator_name', 'created',
                     'oprator_type', 'oprator_state')
 admin.site.register(Oprators, OpratorTable)
 

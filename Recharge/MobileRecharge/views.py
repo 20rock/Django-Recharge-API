@@ -55,7 +55,10 @@ class PlanList(APIView):
 class HistoryList(APIView):
 
     def get(self, request, format=None):
-        userHist = History.objects.all()
+        # userHist = History.objects.all()
+        user_mobile = request.query_params.get('user_mobile')
+        print(user_mobile)
+        userHist = History.objects.filter(user_mobile=user_mobile)
         serializer = HistorySerializer(userHist, many=True)
         return Response(serializer.data)
 
@@ -76,8 +79,12 @@ class HistoryDetail(APIView):
             raise Http404
 
     def get(self, request, pk, format=None):
-        userHist = self.get_object(pk)
-        serializer = HistorySerializer(userHist)
+        # userHist = self.get_object(pk)
+        # requse params
+        user_mobile = request.query_params.get('user_mobile')
+        print(user_mobile)
+        data = History.objects.filter(user_mobile=user_mobile)
+        serializer = HistorySerializer(data)
         return Response(serializer.data)
 
     def put(self, request, pk, format=None):
